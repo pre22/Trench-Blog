@@ -1,0 +1,1 @@
+web: gunicorn trenchblog.wsgi --log-file -
