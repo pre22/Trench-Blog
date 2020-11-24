@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, CreateView, UpdateView
+from blogs.models import Post
 
-
-# Create your views here.
+class BlogListView(ListView):
+    model = Post
+    template_name = 'blogs/index.html'
