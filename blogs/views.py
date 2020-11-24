@@ -4,3 +4,5 @@ from blogs.models import Post
 class BlogListView(ListView):
     model = Post
     template_name = 'blogs/index.html'
+
+class Ab
