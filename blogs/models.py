@@ -7,3 +7,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class ContactModel(models.Model):
+    name = models.CharField(max_length=25)
+    email = models.EmailField(max_length=25)
+    phone = models.IntegerField(max_length=15)
+    message = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.name
+    
