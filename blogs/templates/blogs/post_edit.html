@@ -1,7 +1,7 @@
 {% extends 'blogs/base.html' %}
 
 {% block content %}
-<!-- Page Header -->
+    <!-- Page Header -->
   <header class="masthead" style="background-color: black">
     <div class="overlay"></div>
     <div class="container">
@@ -10,25 +10,29 @@
           <div class="post-heading">
             <h1>{{ post.title }}</h1>
             {% comment %} <h2 class="subheading"></h2> {% endcomment %}
-            <span class="meta">Posted by
+            {% comment %} <span class="meta">Posted by
               {{ post.author }}
-              on {{ post.date }}</span>
+              on {{ post.date }}</span> {% endcomment %}
           </div>
         </div>
       </div>
     </div>
   </header>
 
-<!-- Page COntent -->
- <article>
-    <div class="container">
+  <!-- Page content -->
+  <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-        <p>{{ post.body }}
+        <h1>Edit Post</h1>
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
         </div>
       </div>
-    </div>
- </article>
- 
-{% endblock content %}
+    </div>  
 
+
+{% endblock content %}
