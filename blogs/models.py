@@ -11,7 +11,7 @@ class Post(models.Model):
 class ContactModel(models.Model):
     name = models.CharField(max_length=25)
     email = models.EmailField(max_length=25)
-    phone = models.IntegerField(max_length=15)
+    phone = models.IntegerField()
     message = models.CharField(max_length=500)
 
     def __str__(self):

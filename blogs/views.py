@@ -6,8 +6,8 @@ class BlogListView(ListView):
     model = Post
     template_name = 'blogs/index.html'
 
+
 class AboutPageView(TemplateView):
-    model = Post
     template_name = 'blogs/about.html'
 
 class ContactPageView(FormView):
@@ -15,6 +15,5 @@ class ContactPageView(FormView):
     template_name = 'blogs/contact.html'
     success_url = 'contact'
 
-class PostPageView(CreateView):
-    model = Post
+class PostPageView(TemplateView):
     template_name = 'blogs/post.html'
