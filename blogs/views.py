@@ -21,7 +21,7 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Post
-    template_name = 'blogs/post.html'
+    template_name = 'blogs/post_new.html'
 
 class BlogUpdateView(UpdateView):
     model = Post
