@@ -12,6 +12,7 @@ from blogs.forms import ContactForm
 from django.urls import reverse_lazy
 
 class BlogListView(ListView):
+    paginate_by = 10
     model = Post
     template_name = 'blogs/index.html'
 
@@ -22,10 +23,14 @@ class BlogDetailView(DetailView):
 class BlogCreateView(CreateView):
     model = Post
     template_name = 'blogs/post_new.html'
+    fields = ['title', 'author', 'body']
+    success_url = reverse_lazy('home')
 
 class BlogUpdateView(UpdateView):
     model = Post
     template_name = 'blogs/post_edit.html'
+    fields = ['title', 'body']
+    success_url = reverse_lazy('home')
 
 class BlogDeleteView(DeleteView):
     model = Post
@@ -38,4 +43,4 @@ class AboutPageView(TemplateView):
 class ContactPageView(FormView):
     form_class = ContactForm
     template_name = 'blogs/contact.html'
-    success_url = 'contact'
+    success_url = reverse_lazy('home')
