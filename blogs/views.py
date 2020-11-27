@@ -11,6 +11,7 @@ from blogs.models import Post
 from blogs.forms import ContactForm
 from django.urls import reverse_lazy
 from blogs.models import ContactModel
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 class BlogListView(ListView):
     paginate_by = 10
@@ -24,16 +25,24 @@ class BlogDetailView(DetailView):
 class BlogCreateView(CreateView):
     model = Post
     template_name = 'blogs/post_new.html'
-    fields = ['title', 'author', 'category', 'body']
+    fields = ['title', 'category', 'body']
     success_url = reverse_lazy('home')
 
-class BlogUpdateView(UpdateView):
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class BlogUpdateView(UpdateView, UserPassesTestMixin):
     model = Post
     template_name = 'blogs/post_edit.html'
     fields = ['title', 'body']
     success_url = reverse_lazy('home')
 
-class BlogDeleteView(DeleteView):
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+class BlogDeleteView(DeleteView, UserPassesTestMixin):
     model = Post
     template_name = 'blogs/post_delete.html'
     success_url = reverse_lazy('home')
@@ -46,6 +55,10 @@ class ContactPageView(CreateView):
     template_name = 'blogs/contact.html'
     fields = ['name', 'email', 'phone', 'message']
     success_url = reverse_lazy('home')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
 
 # class ContactPageView(FormView):
 #     form_class = ContactForm

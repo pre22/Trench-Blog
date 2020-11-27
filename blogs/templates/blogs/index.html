@@ -12,7 +12,9 @@
           <div class="site-heading">
             <h1>Clean Blog</h1>
             <span class="subheading">A Blog Theme by Start Bootstrap</span>
+            {% if user.is_authenticated %}
             <a class="subheading" style="color:white;" href="{% url 'post_new' %}">New Posts</a>
+            {% endif %}
           </div>
         </div>
       </div>
