@@ -1,10 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+class CategoryTable(models.Model):
+    name = models.CharField(max_length=25, default='General')
+    
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE,) # Allows for many to one relationship
+    author = models.ForeignKey(User, on_delete=models.CASCADE,) # Allows for many to one relationship
+    category = models.ForeignKey(CategoryTable, null=True, on_delete=models.CASCADE,)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
+
 
 
     def __str__(self):
@@ -19,9 +28,5 @@ class ContactModel(models.Model):
     def __str__(self):
         return self.name
     
-class CategoryTable(models.Model):
-    name = models.CharField(max_length=25)
-    
-    def __str__(self):
-        return self.name
+
     
