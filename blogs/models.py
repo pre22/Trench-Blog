@@ -3,7 +3,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 
+
+# # Adding Custom FIelds to DJ builtin form
+# class CustomUserField(AbstractUser):
+#     email = models.EmailField(max_length=30, null=False, blank=False)
+#     phone = models.PositiveIntegerField(null=False, blank=False)
+#     address = models.CharField(max_length=50, null=False, blank=False)
 
 class CategoryTable(models.Model):
     name = models.CharField(max_length=25, default='General')
