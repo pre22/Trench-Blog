@@ -1,0 +1,34 @@
+{% extends 'blogs/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>New Post</h1>
+            <span class="subheading">Create a New Comment for {{ post.title }}!</span>
+            {% comment %} <a class="subheading" style="color:white;" href="{% url 'post_new' %}">New Posts</a> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form action="" method="post">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Save">
+                </form>
+            </div>
+        </div>
+  </div>
+
+{% endblock content %}

@@ -24,7 +24,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-        <p>{{ post.body }}
+          <p>{{ post.body }}</p>
         </div>
       </div>
     </div>
@@ -33,7 +33,11 @@
 {% if user.is_authenticated %}
 <p><a href="{% url 'post_edit' post.pk %}">+ Edit Post</a></p>
 <p><a href="{% url 'post_delete' post.pk %}">+ Delete Blog Post</a></p>
+<p><a href="{% url 'comment' post.pk %}">Add Comment</a></p>
  {% endif %}
+
+
+
 
 {% endblock content %}
 

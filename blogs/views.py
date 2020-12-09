@@ -8,9 +8,9 @@ from django.views.generic import (
     DeleteView,
 )
 from blogs.models import Post
-from blogs.forms import ContactForm
+from blogs.forms import ContactForm, CommentForm
 from django.urls import reverse_lazy
-from blogs.models import ContactModel
+from blogs.models import ContactModel, Comment, Profile
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 class BlogListView(ListView):
@@ -56,11 +56,27 @@ class ContactPageView(CreateView):
     fields = ['name', 'email', 'phone', 'message']
     success_url = reverse_lazy('home')
 
+    '''
+    if the author on the current object matches the current user on the webpage (whoever is logged in and trying to make the change),
+    then allow it. If false, an error will automatically be thrown.
+    '''
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
 
-# class ContactPageView(FormView):
-#     form_class = ContactForm
-#     template_name = 'blogs/contact.html'
-#     success_url = reverse_lazy('home')
+class ProfilePage(ListView):
+    model = Profile
+    template_name = 'blogs/dashboard.html'
+
+class ProfilePageUpdate(UpdateView, UserPassesTestMixin):
+    model = Post
+    template_name = 'blogs/profile_edit.html'
+    fields = ['title', 'body']
+    success_url = reverse_lazy('profile')
+
+class CreateCommentView(CreateView):
+    model = Comment
+    template_name = 'blogs/createcomments.html'
+    fields = ['post', 'comment']
+    success_url = reverse_lazy('post_detail')
+    
